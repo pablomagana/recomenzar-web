@@ -93,18 +93,12 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 font-montserrat">Síguenos</h3>
             <div className="flex space-x-4">
-              <a href="#" aria-label="Facebook" className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-amber-500 transition duration-300">
-                <Facebook size={18} />
-              </a>
-              <a href="#" aria-label="Twitter" className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-amber-500 transition duration-300">
-                <Twitter size={18} />
-              </a>
-              <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-amber-500 transition duration-300">
+              
+              
+              <a href="https://www.instagram.com/fundacionrecomenzar/" aria-label="Instagram" className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-amber-500 transition duration-300">
                 <Instagram size={18} />
               </a>
-              <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-amber-500 transition duration-300">
-                <Linkedin size={18} />
-              </a>
+              
             </div>
             <div className="mt-6">
               <a href="http://www.recomenzar.org" className="text-amber-300 hover:underline" target="_blank" rel="noopener noreferrer">www.recomenzar.org</a>

@@ -40,33 +40,7 @@ const Hero: React.FC = () => {
           <div className="hidden md:block">
             {/* Silhouette of people holding hands */}
             <div className="w-full h-80 bg-black bg-opacity-50 rounded-lg relative overflow-hidden">
-              <svg viewBox="0 0 800 400" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                  <linearGradient id="sunset" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#FF9500" />
-                    <stop offset="100%" stopColor="#FFCC00" />
-                  </linearGradient>
-                </defs>
-                <rect x="0" y="0" width="800" height="400" fill="url(#sunset)" />
-                <g fill="#000000">
-                  <path d="M200,300 C200,240 180,240 180,240 L200,260 L220,240 C220,240 200,240 200,300 Z" />
-                  <path d="M300,300 C300,240 280,240 280,240 L300,260 L320,240 C320,240 300,240 300,300 Z" />
-                  <path d="M400,300 C400,240 380,240 380,240 L400,260 L420,240 C420,240 400,240 400,300 Z" />
-                  <path d="M500,300 C500,240 480,240 480,240 L500,260 L520,240 C520,240 500,240 500,300 Z" />
-                  <path d="M600,300 C600,240 580,240 580,240 L600,260 L620,240 C620,240 600,240 600,300 Z" />
-                  
-                  <rect x="190" y="300" width="20" height="80" />
-                  <rect x="290" y="300" width="20" height="80" />
-                  <rect x="390" y="300" width="20" height="80" />
-                  <rect x="490" y="300" width="20" height="80" />
-                  <rect x="590" y="300" width="20" height="80" />
-                  
-                  <path d="M220,300 L280,300" />
-                  <path d="M320,300 L380,300" />
-                  <path d="M420,300 L480,300" />
-                  <path d="M520,300 L580,300" />
-                </g>
-              </svg>
+              <img src="assets/montana.jpg" alt="montain" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>

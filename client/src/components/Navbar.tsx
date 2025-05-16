@@ -41,12 +41,8 @@ const Navbar: React.FC = () => {
         <div className="flex items-center mb-4 md:mb-0 w-full md:w-auto justify-between">
           <div className="flex items-center">
             {/* Logo */}
-            <div className="relative w-10 h-10 mr-2">
-              <div className="absolute inset-0 rounded-full overflow-hidden">
-                <div className="absolute bottom-0 w-full h-1/2 logo-hills rounded-b-full"></div>
-                <div className="absolute top-0 w-full h-1/2 logo-sun-rays rounded-t-full"></div>
-                <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-yellow-300 rounded-full shadow-lg"></div>
-              </div>
+            <div className="h-10 w-10 mr-2">
+              <img src="/assets/logo-transparent-png.png" alt="Logo Recomenzar" className="h-full w-auto" />
             </div>
             <span className="text-2xl font-bold text-green-800 font-montserrat">Recomenzar</span>
           </div>

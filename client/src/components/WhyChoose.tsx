@@ -50,8 +50,8 @@ const WhyChoose: React.FC = () => {
                 <div className="w-full md:w-1/3 mb-6 md:mb-0 md:mr-8">
                   <div className="rounded-lg shadow-md w-full h-64 overflow-hidden">
                     <img 
-                      src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
-                      alt="Amanecer sobre el horizonte - un nuevo comienzo" 
+                      src="https://images.unsplash.com/photo-1469571486292-b53601010376?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                      alt="Manos unidas en señal de apoyo y solidaridad" 
                       className="w-full h-full object-cover"
                     />
                   </div>

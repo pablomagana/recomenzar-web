@@ -1,0 +1,89 @@
+import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link } from 'wouter';
+
+const Navbar: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+    setIsMenuOpen(false);
+  };
+
+  return (
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md' : 'bg-white shadow-md'}`}>
+      <nav className="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between">
+        <div className="flex items-center mb-4 md:mb-0 w-full md:w-auto justify-between">
+          <div className="flex items-center">
+            {/* Logo */}
+            <div className="relative w-10 h-10 mr-2">
+              <div className="absolute inset-0 rounded-full overflow-hidden">
+                <div className="absolute bottom-0 w-full h-1/2 logo-hills rounded-b-full"></div>
+                <div className="absolute top-0 w-full h-1/2 logo-sun-rays rounded-t-full"></div>
+                <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-yellow-300 rounded-full shadow-lg"></div>
+              </div>
+            </div>
+            <span className="text-2xl font-bold text-green-800 font-montserrat">Recomenzar</span>
+          </div>
+          <div className="hidden md:block ml-3 text-sm italic text-gray-700">
+            Cuando el amor sana, la vida renace
+          </div>
+          
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={toggleMenu}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+        
+        {/* Desktop Menu */}
+        <div className={`hidden md:flex flex-wrap justify-center md:justify-end space-x-1 md:space-x-4`}>
+          <button onClick={() => scrollToSection('inicio')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Inicio</button>
+          <button onClick={() => scrollToSection('quienes-somos')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Quienes Somos</button>
+          <button onClick={() => scrollToSection('servicios')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Servicios</button>
+          <button onClick={() => scrollToSection('colabora')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Colabora</button>
+          <button onClick={() => scrollToSection('contacto')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Contacto</button>
+          <button onClick={() => scrollToSection('alta')} className="px-4 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition duration-300 ml-2">Darse de Alta</button>
+        </div>
+        
+        {/* Mobile Menu */}
+        <div className={`md:hidden w-full transition-all duration-300 overflow-hidden ${isMenuOpen ? 'max-h-screen opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+          <div className="flex flex-col space-y-2 pb-4">
+            <button onClick={() => scrollToSection('inicio')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Inicio</button>
+            <button onClick={() => scrollToSection('quienes-somos')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Quienes Somos</button>
+            <button onClick={() => scrollToSection('servicios')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Servicios</button>
+            <button onClick={() => scrollToSection('colabora')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Colabora</button>
+            <button onClick={() => scrollToSection('contacto')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Contacto</button>
+            <button onClick={() => scrollToSection('alta')} className="px-4 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition duration-300">Darse de Alta</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+export default Navbar;

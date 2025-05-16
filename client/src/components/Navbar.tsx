@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import logoPath from '@assets/logo-transparent-png.png';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,7 +43,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center">
             {/* Logo */}
             <div className="h-10 w-10 mr-2">
-              <img src="/assets/logo-transparent-png.png" alt="Logo Recomenzar" className="h-full w-auto" />
+              <img src={logoPath} alt="Logo Recomenzar" className="h-full w-auto" />
             </div>
             <span className="text-2xl font-bold text-green-800 font-montserrat">Recomenzar</span>
           </div>

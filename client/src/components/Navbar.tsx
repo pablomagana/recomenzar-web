@@ -40,15 +40,21 @@ const Navbar: React.FC = () => {
     <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md' : 'bg-white shadow-md'}`}>
       <nav className="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center mb-4 md:mb-0 w-full md:w-auto justify-between">
-          <div className="flex items-center">
-            {/* Logo */}
-            <div className="h-10 w-10 mr-2">
-              <img src={logoPath} alt="Logo Recomenzar" className="h-full w-auto" />
+          <div className="flex flex-col items-center">
+            {/* Logo and name */}
+            <div className="flex items-center">
+              <div className="h-12 w-12 mr-2">
+                <img src={logoPath} alt="Logo Recomenzar" className="h-full w-auto" />
+              </div>
+              <span className="text-2xl font-bold text-green-800 font-montserrat">Recomenzar</span>
             </div>
-            <span className="text-2xl font-bold text-green-800 font-montserrat">Recomenzar</span>
+            {/* Eslogan */}
+            <div className="text-sm italic text-gray-700 mt-1">
+              Cuando el amor sana, la vida renace
+            </div>
           </div>
-          <div className="hidden md:block ml-3 text-sm italic text-gray-700">
-            Cuando el amor sana, la vida renace
+          <div className="hidden md:block">
+            {/* Espacio vacío para mantener el layout */}
           </div>
           
           {/* Mobile Menu Button */}

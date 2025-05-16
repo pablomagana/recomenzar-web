@@ -46,24 +46,14 @@ const WhyChoose: React.FC = () => {
           <Card className="bg-gray-50">
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row items-center">
-                {/* Sunrise/Sunset Image */}
+                {/* Imagen representativa de la misión */}
                 <div className="w-full md:w-1/3 mb-6 md:mb-0 md:mr-8">
                   <div className="rounded-lg shadow-md w-full h-64 overflow-hidden">
-                    <svg viewBox="0 0 800 600" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-                      <defs>
-                        <linearGradient id="sunriseSky" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#FF9500" />
-                          <stop offset="100%" stopColor="#FFD700" />
-                        </linearGradient>
-                        <linearGradient id="land" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#689F38" />
-                          <stop offset="100%" stopColor="#33691E" />
-                        </linearGradient>
-                      </defs>
-                      <rect x="0" y="0" width="800" height="400" fill="url(#sunriseSky)" />
-                      <circle cx="400" cy="150" r="80" fill="#FFCC00" />
-                      <path d="M0,400 Q200,300 400,350 Q600,300 800,400 L800,600 L0,600 Z" fill="url(#land)" />
-                    </svg>
+                    <img 
+                      src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                      alt="Amanecer sobre el horizonte - un nuevo comienzo" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </div>
                 <div className="w-full md:w-2/3">

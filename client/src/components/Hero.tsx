@@ -107,7 +107,7 @@ const Hero: React.FC = () => {
           >
             <div className="w-full h-96 rounded-lg relative overflow-hidden shadow-xl">
               <img 
-                src="https://images.unsplash.com/photo-1469571486292-b53601010376?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                src="https://images.pexels.com/photos/1246796/pexels-photo-1246796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
                 alt="Manos unidas en señal de apoyo y solidaridad" 
                 className="w-full h-full object-cover transition-transform duration-15000 hover:scale-110 transform"
               />

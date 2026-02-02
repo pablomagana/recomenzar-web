@@ -68,6 +68,7 @@ const Navbar: React.FC = () => {
           <button onClick={() => scrollToSection('inicio')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Inicio</button>
           <button onClick={() => scrollToSection('quienes-somos')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Quienes Somos</button>
           <button onClick={() => scrollToSection('servicios')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Servicios</button>
+          <Link href="/formacion" className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Formación</Link>
           <button onClick={() => scrollToSection('colabora')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Colabora</button>
           <button onClick={() => scrollToSection('contacto')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Contacto</button>
           <button onClick={() => scrollToSection('alta')} className="px-4 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition duration-300 ml-2">Darse de Alta</button>
@@ -79,6 +80,7 @@ const Navbar: React.FC = () => {
             <button onClick={() => scrollToSection('inicio')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Inicio</button>
             <button onClick={() => scrollToSection('quienes-somos')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Quienes Somos</button>
             <button onClick={() => scrollToSection('servicios')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Servicios</button>
+            <Link href="/formacion" className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Formación</Link>
             <button onClick={() => scrollToSection('colabora')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Colabora</button>
             <button onClick={() => scrollToSection('contacto')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Contacto</button>
             <button onClick={() => scrollToSection('alta')} className="px-4 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition duration-300">Darse de Alta</button>

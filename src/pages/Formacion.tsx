@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Link } from 'wouter';
-import logoPath from '@assets/logo-transparent-png.png';
+import logoPath from '../../assets/logo-transparent-png.png';
 
 interface Curso {
   id: number;

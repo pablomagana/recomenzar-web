@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Heart, Users, Building } from 'lucide-react';
+import { scrollToSection } from '@/lib/utils';
 
 const Collaborate: React.FC = () => {
   const collaborationOptions = [
@@ -24,16 +25,6 @@ const Collaborate: React.FC = () => {
       action: "Colaboración empresarial"
     }
   ];
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <section id="colabora" className="py-16 bg-white">

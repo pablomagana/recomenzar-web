@@ -7,19 +7,26 @@ const Services: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const serviceSection = document.getElementById('servicios');
-      if (serviceSection) {
-        const rect = serviceSection.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.75) {
-          setIsVisible(true);
-        }
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const serviceSection = document.getElementById('servicios');
+          if (serviceSection) {
+            const rect = serviceSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.75) {
+              setIsVisible(true);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check on initial load
-    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

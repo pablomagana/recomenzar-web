@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import manosImg from "../../assets/manos.jpg";
 
 const WhyChoose: React.FC = () => {
   return (
@@ -68,7 +69,7 @@ const WhyChoose: React.FC = () => {
                 <div className="w-full md:w-1/3 mb-6 md:mb-0 md:mr-8">
                   <div className="rounded-lg shadow-md w-full h-64 overflow-hidden">
                     <img
-                      src="assets/manos.jpg"
+                      src={manosImg}
                       alt="Manos unidas en señal de apoyo y solidaridad"
                       className="w-full h-full object-cover"
                     />

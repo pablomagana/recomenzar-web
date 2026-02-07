@@ -1,22 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Facebook, Twitter, Instagram, Linkedin, Send, Phone, Mail, MapPin } from 'lucide-react';
+import { Instagram, Send, Phone, Mail, MapPin } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string;
+import { scrollToSection } from '@/lib/utils';
 
 const Footer: React.FC = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
+  const { toast } = useToast();
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+
+  const submitNewsletter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Nueva suscripción al boletín - Recomenzar',
+          email: newsletterEmail,
+        }),
+      });
+      if (!res.ok) throw new Error('Error al enviar');
+      toast({
+        title: "Suscripción exitosa",
+        description: "Te has suscrito al boletín de Recomenzar.",
+      });
+      setNewsletterEmail('');
+    } catch {
+      toast({
+        title: "Error",
+        description: "No se pudo procesar tu suscripción.",
+        variant: "destructive",
       });
     }
-  };
-
-  const submitNewsletter = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Newsletter subscription logic would go here
   };
 
   return (
@@ -101,7 +121,7 @@ const Footer: React.FC = () => {
               
             </div>
             <div className="mt-6">
-              <a href="http://www.recomenzar.org" className="text-amber-300 hover:underline" target="_blank" rel="noopener noreferrer">www.recomenzar.org</a>
+              <a href="https://www.recomenzar.org" className="text-amber-300 hover:underline" target="_blank" rel="noopener noreferrer">www.recomenzar.org</a>
             </div>
           </div>
           
@@ -110,9 +130,11 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-bold mb-4 font-montserrat">Mantente informado</h3>
             <p className="mb-4">Suscríbete a nuestro boletín para recibir noticias y actualizaciones.</p>
             <form onSubmit={submitNewsletter} className="flex">
-              <Input 
-                type="email" 
-                placeholder="Tu email" 
+              <Input
+                type="email"
+                placeholder="Tu email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 className="rounded-l-lg rounded-r-none border-r-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-gray-800"
               />
               <Button type="submit" className="px-4 py-2 bg-amber-500 rounded-r-lg rounded-l-none hover:bg-amber-600 transition duration-300">

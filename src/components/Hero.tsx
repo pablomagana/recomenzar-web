@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { scrollToSection } from '@/lib/utils';
 
 const Hero: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -8,16 +9,6 @@ const Hero: React.FC = () => {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <section id="inicio" className="sunrise-bg py-16 md:py-24 relative overflow-hidden">

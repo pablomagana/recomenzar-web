@@ -46,8 +46,8 @@ const Navbar: React.FC = () => {
               </div>
               <span className="text-2xl font-bold text-green-800 font-montserrat">Recomenzar</span>
             </div>
-            {/* Eslogan - hidden at lg to save space, visible at xl+ */}
-            <div className="text-sm italic text-gray-700 mt-1 lg:hidden xl:block">
+            {/* Eslogan */}
+            <div className="text-sm italic text-gray-700 mt-1">
               <span className="whitespace-nowrap">Cuando el amor sana, la vida renace</span> — <span className="not-italic text-[10px] text-gray-400 whitespace-nowrap">since november 2025</span>
             </div>
           </div>

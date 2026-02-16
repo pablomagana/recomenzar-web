@@ -117,7 +117,7 @@ const Footer: React.FC = () => {
               
             </div>
             <div className="mt-6">
-              <a href="https://www.recomenzar.org" className="text-amber-300 hover:underline" target="_blank" rel="noopener noreferrer">www.recomenzar.org</a>
+              <a href="https://recomenzar.es" className="text-amber-300 hover:underline" target="_blank" rel="noopener noreferrer">recomenzar.es</a>
             </div>
           </div>
           

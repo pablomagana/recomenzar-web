@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
     <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md' : 'bg-white shadow-md'}`}>
       <nav className="container mx-auto px-4 py-3 flex flex-col xl:flex-row items-center justify-between">
         <div className="flex items-center mb-4 xl:mb-0 w-full xl:w-auto justify-between">
-          <div className="flex flex-col items-start xl:items-center">
+          <div className="flex flex-col items-start">
             {/* Logo and name */}
             <div className="flex items-center">
               <div className="h-12 w-12 mr-2">

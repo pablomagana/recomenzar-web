@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { scrollToSection as scrollTo } from '@/lib/utils';
@@ -70,6 +70,7 @@ const Navbar: React.FC = () => {
           <button onClick={() => scrollToSection('colabora')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Colabora</button>
           <button onClick={() => scrollToSection('contacto')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Contacto</button>
           <button onClick={() => scrollToSection('alta')} className="px-4 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition duration-300 ml-2">Darse de Alta</button>
+          <a href="https://app.recomenzar.es" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-4 py-2 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300 ml-2">Accede a la App <ExternalLink size={14} /></a>
         </div>
         
         {/* Mobile Menu */}
@@ -82,6 +83,7 @@ const Navbar: React.FC = () => {
             <button onClick={() => scrollToSection('colabora')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Colabora</button>
             <button onClick={() => scrollToSection('contacto')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Contacto</button>
             <button onClick={() => scrollToSection('alta')} className="px-4 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition duration-300">Darse de Alta</button>
+            <a href="https://app.recomenzar.es" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300">Accede a la App <ExternalLink size={14} /></a>
           </div>
         </div>
       </nav>

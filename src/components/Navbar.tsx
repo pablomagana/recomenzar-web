@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
             </div>
             {/* Eslogan */}
             <div className="text-sm italic text-gray-700 mt-1">
-              Cuando el amor sana, la vida renace
+              Cuando el amor sana, la vida renace — <span className="not-italic text-[10px] text-gray-400">since november 2025</span>
             </div>
           </div>
           <div className="hidden md:block">

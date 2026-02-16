@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Instagram, Send, Phone, Mail, MapPin } from 'lucide-react';
+import { Instagram, Send, Mail, MapPin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string;
@@ -47,13 +47,9 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 font-montserrat">Contacto</h3>
             <ul className="space-y-3">
-              <li className="flex items-center">
-                <Phone className="mr-3 text-amber-300 h-5 w-5" />
-                <span>610 03 01 38</span>
-              </li>
-              <li className="flex items-center">
+<li className="flex items-center">
                 <Mail className="mr-3 text-amber-300 h-5 w-5" />
-                <span>recomenzarong@gmail.com</span>
+                <span>info@recomenzar.es</span>
               </li>
               <li className="flex items-center">
                 <MapPin className="mr-3 text-amber-300 h-5 w-5" />

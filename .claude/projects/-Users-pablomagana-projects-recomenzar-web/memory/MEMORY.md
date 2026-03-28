@@ -1,1 +1,2 @@
 - [Follow PRD phases](feedback_follow_prd_phases.md) — Never skip phases in a PRD; follow defined order strictly
+- [No Claude co-author](feedback_no_claude_coauthor.md) — Do not add Co-Authored-By Claude in commits

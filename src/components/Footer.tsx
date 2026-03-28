@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Instagram, Send, Phone, Mail, MapPin } from 'lucide-react';
+import { Instagram, Send, Mail, MapPin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'wouter';
 
@@ -48,11 +48,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 font-montserrat">Contacto</h3>
             <ul className="space-y-3">
-              <li className="flex items-center">
-                <Phone className="mr-3 text-amber-300 h-5 w-5" />
-                <span>610 03 01 38</span>
-              </li>
-              <li className="flex items-center">
+<li className="flex items-center">
                 <Mail className="mr-3 text-amber-300 h-5 w-5" />
                 <span>info@recomenzar.es</span>
               </li>
@@ -130,7 +126,7 @@ const Footer: React.FC = () => {
               
             </div>
             <div className="mt-6">
-              <a href="https://www.recomenzar.org" className="text-amber-300 hover:underline" target="_blank" rel="noopener noreferrer">www.recomenzar.org</a>
+              <a href="https://recomenzar.es" className="text-amber-300 hover:underline" target="_blank" rel="noopener noreferrer">recomenzar.es</a>
             </div>
           </div>
           

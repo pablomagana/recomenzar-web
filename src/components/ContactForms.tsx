@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string;
@@ -18,6 +19,7 @@ const contactFormSchema = z.object({
   email: z.string().email("Introduce un email válido"),
   phone: z.string().optional(),
   message: z.string().min(1, "El mensaje es obligatorio").max(2000),
+  aceptaPrivacidad: z.literal(true, { errorMap: () => ({ message: 'Debes aceptar la política de privacidad' }) }),
 });
 
 const registrationFormSchema = z.object({
@@ -26,6 +28,7 @@ const registrationFormSchema = z.object({
   phone: z.string().min(1, "El teléfono es obligatorio"),
   relation: z.string().min(1, "Selecciona una relación"),
   contactMethod: z.string().min(1),
+  aceptaPrivacidad: z.literal(true, { errorMap: () => ({ message: 'Debes aceptar la política de privacidad' }) }),
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -166,6 +169,23 @@ const ContactForms: React.FC = () => {
                     )}
                   </div>
 
+                  <div className="flex items-start gap-2">
+                    <Checkbox
+                      id="contact-privacy"
+                      onCheckedChange={(checked) => {
+                        contactForm.setValue('aceptaPrivacidad', checked === true ? true : false as never, { shouldValidate: true });
+                      }}
+                    />
+                    <label htmlFor="contact-privacy" className="text-xs text-gray-600 leading-tight">
+                      He leído y acepto la{' '}
+                      <a href="/privacidad" target="_blank" className="text-green-700 underline">Política de Privacidad</a>
+                      {' '}y autorizo el tratamiento de mis datos para atender mi consulta. *
+                    </label>
+                  </div>
+                  {contactForm.formState.errors.aceptaPrivacidad && (
+                    <p className="text-red-500 text-xs">{contactForm.formState.errors.aceptaPrivacidad.message}</p>
+                  )}
+
                   <Button
                     type="submit"
                     className="w-full bg-amber-500 hover:bg-amber-600 text-white rounded-full py-6"
@@ -260,6 +280,23 @@ const ContactForms: React.FC = () => {
                       </div>
                     </RadioGroup>
                   </div>
+
+                  <div className="flex items-start gap-2">
+                    <Checkbox
+                      id="reg-privacy"
+                      onCheckedChange={(checked) => {
+                        registrationForm.setValue('aceptaPrivacidad', checked === true ? true : false as never, { shouldValidate: true });
+                      }}
+                    />
+                    <label htmlFor="reg-privacy" className="text-xs text-gray-600 leading-tight">
+                      He leído y acepto la{' '}
+                      <a href="/privacidad" target="_blank" className="text-green-700 underline">Política de Privacidad</a>
+                      {' '}y autorizo el tratamiento de mis datos para gestionar mi solicitud. *
+                    </label>
+                  </div>
+                  {registrationForm.formState.errors.aceptaPrivacidad && (
+                    <p className="text-red-500 text-xs">{registrationForm.formState.errors.aceptaPrivacidad.message}</p>
+                  )}
 
                   <Button
                     type="submit"

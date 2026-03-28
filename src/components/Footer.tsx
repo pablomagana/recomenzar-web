@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Instagram, Send, Phone, Mail, MapPin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Link } from 'wouter';
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string;
 import { scrollToSection } from '@/lib/utils';
@@ -53,7 +54,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center">
                 <Mail className="mr-3 text-amber-300 h-5 w-5" />
-                <span>recomenzarong@gmail.com</span>
+                <span>info@recomenzar.es</span>
               </li>
               <li className="flex items-center">
                 <MapPin className="mr-3 text-amber-300 h-5 w-5" />
@@ -99,12 +100,20 @@ const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection('contacto')}
                   className="hover:text-amber-300 transition duration-300"
                 >
                   Contacto
                 </button>
+              </li>
+              <li>
+                <Link
+                  href="/catalogo"
+                  className="hover:text-amber-300 transition duration-300"
+                >
+                  Catálogo
+                </Link>
               </li>
             </ul>
           </div>
@@ -147,9 +156,9 @@ const Footer: React.FC = () => {
         <div className="mt-12 pt-6 border-t border-gray-700 text-center">
           <p className="text-sm text-gray-400">© 2025 Recomenzar. Todos los derechos reservados.</p>
           <div className="mt-2 flex justify-center space-x-4 text-sm text-gray-400">
-            <a href="#" className="hover:text-amber-300 transition duration-300">Aviso Legal</a>
-            <a href="#" className="hover:text-amber-300 transition duration-300">Política de Privacidad</a>
-            <a href="#" className="hover:text-amber-300 transition duration-300">Política de Cookies</a>
+            <Link href="/aviso-legal" className="hover:text-amber-300 transition duration-300">Aviso Legal</Link>
+            <Link href="/privacidad" className="hover:text-amber-300 transition duration-300">Política de Privacidad</Link>
+            <Link href="/cookies" className="hover:text-amber-300 transition duration-300">Política de Cookies</Link>
           </div>
         </div>
       </div>

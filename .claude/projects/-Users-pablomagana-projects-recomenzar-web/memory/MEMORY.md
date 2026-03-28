@@ -1,0 +1,1 @@
+- [Follow PRD phases](feedback_follow_prd_phases.md) — Never skip phases in a PRD; follow defined order strictly

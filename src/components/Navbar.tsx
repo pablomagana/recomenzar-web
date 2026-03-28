@@ -67,11 +67,12 @@ const Navbar: React.FC = () => {
           <button onClick={() => scrollToSection('quienes-somos')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Quienes Somos</button>
           <button onClick={() => scrollToSection('servicios')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Servicios</button>
           <Link href="/formacion" className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Formación</Link>
+          <Link href="/catalogo" className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Catálogo</Link>
           <button onClick={() => scrollToSection('colabora')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Colabora</button>
           <button onClick={() => scrollToSection('contacto')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Contacto</button>
           <button onClick={() => scrollToSection('alta')} className="px-4 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition duration-300 ml-2">Darse de Alta</button>
         </div>
-        
+
         {/* Mobile Menu */}
         <div className={`md:hidden w-full transition-all duration-300 overflow-hidden ${isMenuOpen ? 'max-h-screen opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
           <div className="flex flex-col space-y-2 pb-4">
@@ -79,6 +80,7 @@ const Navbar: React.FC = () => {
             <button onClick={() => scrollToSection('quienes-somos')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Quienes Somos</button>
             <button onClick={() => scrollToSection('servicios')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Servicios</button>
             <Link href="/formacion" className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Formación</Link>
+            <Link href="/catalogo" className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Catálogo</Link>
             <button onClick={() => scrollToSection('colabora')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Colabora</button>
             <button onClick={() => scrollToSection('contacto')} className="px-3 py-2 text-green-800 hover:text-orange-600 font-medium transition duration-300">Contacto</button>
             <button onClick={() => scrollToSection('alta')} className="px-4 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition duration-300">Darse de Alta</button>

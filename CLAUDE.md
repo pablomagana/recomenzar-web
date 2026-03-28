@@ -46,3 +46,7 @@ index.html     → Entry point
 - Static assets (logo, images) go in `assets/` and are imported via relative paths
 - Shared utility functions (e.g. `scrollToSection`) are centralized in `src/lib/utils.ts`
 - The Home page is composed of section components: Navbar, Hero, WhyChoose, Services, Process, Testimonials, Collaborate, ContactForms, Footer
+
+
+## tips
+- When given a PRD with numbered phases/steps, execute them in order. If Phase 0 says "create designs", do that before writing any code.

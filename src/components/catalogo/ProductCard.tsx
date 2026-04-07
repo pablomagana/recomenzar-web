@@ -48,7 +48,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <p className="text-sm text-gray-500 line-clamp-2 flex-1">{product.descripcion}</p>
           <div className="flex items-center justify-between mt-auto pt-2">
             <span className="text-lg font-bold text-green-800">
-              €{product.precio.toFixed(2)}
+              €{Number(product.precio).toFixed(2)}
             </span>
             <Button
               size="sm"

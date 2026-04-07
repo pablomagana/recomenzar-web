@@ -136,7 +136,7 @@ export default function CheckoutDialog({ open, onOpenChange, onSuccess }: Checko
             {items.map(item => (
               <div key={item.product.id} className="flex justify-between text-sm">
                 <span className="text-gray-600">{item.product.nombre} x{item.cantidad}</span>
-                <span>€{(item.product.precio * item.cantidad).toFixed(2)}</span>
+                <span>€{(Number(item.product.precio) * item.cantidad).toFixed(2)}</span>
               </div>
             ))}
             <Separator />

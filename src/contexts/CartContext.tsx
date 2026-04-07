@@ -87,7 +87,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [state.items]);
 
   const totalItems = state.items.reduce((sum, i) => sum + i.cantidad, 0);
-  const totalPrice = state.items.reduce((sum, i) => sum + i.product.precio * i.cantidad, 0);
+  const totalPrice = state.items.reduce((sum, i) => sum + Number(i.product.precio) * i.cantidad, 0);
 
   const addItem = (product: Product, cantidad = 1) =>
     dispatch({ type: 'ADD_ITEM', product, cantidad });

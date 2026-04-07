@@ -28,7 +28,7 @@ export default function Catalogo() {
         if (category) params.set('categoria', category);
         params.set('limit', '50');
         const res = await apiGet<PaginatedResponse<Product>>(`/catalogo/products?${params}`);
-        setProducts(res.data);
+        setProducts(Array.isArray(res.data) ? res.data : Array.isArray(res) ? res as unknown as Product[] : []);
       } catch {
         setProducts([]);
       } finally {

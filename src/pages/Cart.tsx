@@ -72,7 +72,7 @@ export default function Cart() {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-green-900 truncate">{item.product.nombre}</h3>
                   <p className="text-xs text-gray-400">{item.product.categoria}</p>
-                  <p className="font-bold text-green-800 mt-1">€{item.product.precio.toFixed(2)}</p>
+                  <p className="font-bold text-green-800 mt-1">€{Number(item.product.precio).toFixed(2)}</p>
                 </div>
                 <div className="flex items-center border rounded-lg">
                   <button
@@ -106,7 +106,7 @@ export default function Cart() {
               {items.map(item => (
                 <div key={item.product.id} className="flex justify-between text-sm">
                   <span className="text-gray-500">{item.product.nombre} (x{item.cantidad})</span>
-                  <span>€{(item.product.precio * item.cantidad).toFixed(2)}</span>
+                  <span>€{(Number(item.product.precio) * item.cantidad).toFixed(2)}</span>
                 </div>
               ))}
               <Separator />

@@ -37,7 +37,7 @@ export default function CartSheet() {
                   <div className="h-16 w-16 rounded-lg bg-green-100 shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm truncate">{item.product.nombre}</p>
-                    <p className="text-sm text-green-800 font-bold">€{item.product.precio.toFixed(2)}</p>
+                    <p className="text-sm text-green-800 font-bold">€{Number(item.product.precio).toFixed(2)}</p>
                     <div className="flex items-center gap-1 mt-1">
                       <button
                         onClick={() => updateQuantity(item.product.id, item.cantidad - 1)}

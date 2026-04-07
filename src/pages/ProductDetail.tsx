@@ -126,7 +126,7 @@ export default function ProductDetail() {
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex-1 space-y-5">
             <h1 className="text-3xl font-bold text-green-900 font-montserrat">{product.nombre}</h1>
             <Badge className="bg-green-100 text-green-800">{catLabel}</Badge>
-            <p className="text-3xl font-bold text-green-800">€{product.precio.toFixed(2)}</p>
+            <p className="text-3xl font-bold text-green-800">€{Number(product.precio).toFixed(2)}</p>
             <Separator />
             <p className="text-gray-600 leading-relaxed">{product.descripcion}</p>
 

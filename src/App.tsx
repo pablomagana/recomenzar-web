@@ -20,11 +20,11 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/formacion" component={Formacion} />
-      <Route path="/catalogo" component={Catalogo} />
       <Route path="/catalogo/producto/:id" component={ProductDetail} />
       <Route path="/catalogo/carrito" component={Cart} />
       <Route path="/catalogo/pedido-confirmado" component={OrderConfirmed} />
       <Route path="/catalogo/admin" component={CatalogoAdmin} />
+      <Route path="/catalogo" component={Catalogo} />
       <Route path="/privacidad" component={PoliticaPrivacidad} />
       <Route path="/cookies" component={PoliticaCookies} />
       <Route path="/aviso-legal" component={AvisoLegal} />

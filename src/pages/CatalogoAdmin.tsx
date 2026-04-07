@@ -351,6 +351,7 @@ function OrdersTab() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState<Order | null>(null);
+  const [productImages, setProductImages] = useState<Record<string, string | null>>({});
   const { toast } = useToast();
 
   const fetchOrders = useCallback(async () => {
@@ -383,6 +384,20 @@ function OrdersTab() {
     enviado: 'bg-green-100 text-green-800',
     completado: 'bg-emerald-100 text-emerald-800',
     cancelado: 'bg-red-100 text-red-800',
+  };
+
+  const openDetail = async (order: Order) => {
+    setDetail(order);
+    if (!order.items?.length) return;
+    const ids = order.items.map(i => i.productId).filter(Boolean) as string[];
+    const imgs: Record<string, string | null> = {};
+    await Promise.all(ids.map(async (id) => {
+      try {
+        const p = await apiGet<Product>(`/catalogo/products/${id}`);
+        imgs[id] = p.imagenPrincipal;
+      } catch { /* product may have been deleted */ }
+    }));
+    setProductImages(prev => ({ ...prev, ...imgs }));
   };
 
   return (
@@ -432,7 +447,7 @@ function OrdersTab() {
                   </Select>
                 </TableCell>
                 <TableCell>
-                  <button onClick={() => setDetail(o)} className="text-green-600 hover:text-green-800">
+                  <button onClick={() => openDetail(o)} className="text-green-600 hover:text-green-800">
                     <Eye className="h-4 w-4" />
                   </button>
                 </TableCell>
@@ -462,18 +477,28 @@ function OrdersTab() {
                 </h4>
                 {detail.items && detail.items.length > 0 ? (
                   <div className="space-y-2">
-                    {detail.items.map((item, i) => (
-                      <div key={item.id}>
-                        {i > 0 && <Separator className="my-2" />}
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <p className="font-medium text-sm">{item.nombreProducto}</p>
-                            <p className="text-xs text-gray-400">{item.cantidad} x €{Number(item.precioUnitario).toFixed(2)}</p>
+                    {detail.items.map((item, i) => {
+                      const imgSrc = item.productId ? productImages[item.productId] : null;
+                      return (
+                        <div key={item.id}>
+                          {i > 0 && <Separator className="my-2" />}
+                          <div className="flex items-center gap-3">
+                            <div className="h-10 w-10 rounded bg-green-100 flex items-center justify-center overflow-hidden shrink-0">
+                              {imgSrc ? (
+                                <img src={`${import.meta.env.VITE_API_URL ?? ''}${imgSrc}`} alt="" className="h-full w-full object-cover" />
+                              ) : (
+                                <ImageIcon className="h-4 w-4 text-green-300" />
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-sm truncate">{item.nombreProducto}</p>
+                              <p className="text-xs text-gray-400">{item.cantidad} x €{Number(item.precioUnitario).toFixed(2)}</p>
+                            </div>
+                            <p className="font-medium text-sm shrink-0">€{Number(item.subtotal).toFixed(2)}</p>
                           </div>
-                          <p className="font-medium text-sm">€{Number(item.subtotal).toFixed(2)}</p>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <p className="text-sm text-gray-400">Sin artículos</p>

@@ -94,8 +94,6 @@ const Formacion = () => {
     return matchBusqueda && matchModalidad && matchBeca && matchBeca100 && matchEmpresa && matchArea;
   });
 
-  const novedadCurso = cursos[0];
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -381,57 +379,6 @@ const Formacion = () => {
           </div>
         </div>
       </section>
-
-      {/* Novedades en formación */}
-      {novedadCurso && (
-        <section className="py-8 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Novedades en formación</h2>
-              {cursos.length > 0 && (
-                <span className="text-sm text-gray-500">{cursos.length} cursos disponibles</span>
-              )}
-            </div>
-
-            <Card className="border-l-4 border-green-500">
-              <CardContent className="p-4">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      {novedadCurso.becaDisponible && (
-                        <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
-                          Beca Disponible
-                        </span>
-                      )}
-                      <span className="text-xs text-gray-500">Nuevo</span>
-                    </div>
-                    <h3 className="font-bold text-gray-800">{novedadCurso.titulo}</h3>
-                    {novedadCurso.empresa && (
-                      <p className="text-sm text-blue-600">{novedadCurso.empresa.nombre}</p>
-                    )}
-                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        {novedadCurso.duracion}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Award className="h-3 w-3" />
-                        {novedadCurso.certificacion}
-                      </span>
-                    </div>
-                  </div>
-                  <Button
-                    className="bg-amber-500 hover:bg-amber-600 text-white whitespace-nowrap"
-                    onClick={() => window.location.href = `mailto:formacion@recomenzar.es?subject=Inscripción: ${novedadCurso.titulo}`}
-                  >
-                    Solicitar Inscripción
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-      )}
 
       {/* FAQ */}
       {(loadingFaqs || faqs.length > 0) && (

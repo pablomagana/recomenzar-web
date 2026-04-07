@@ -17,7 +17,8 @@ import { Separator } from '@/components/ui/separator';
 import { apiGet, apiPost, apiPut, apiDelete, apiUpload, apiPatch, setToken, setRefreshToken, removeToken, isAuthenticated } from '@/lib/api';
 import type { Product, Order, PaginatedResponse, Categoria, EstadoPedido } from '@/types/catalogo';
 import { CATEGORIAS, ESTADOS_PEDIDO } from '@/types/catalogo';
-import CatalogoHeader from '@/components/catalogo/CatalogoHeader';
+import { Link } from 'wouter';
+import { Leaf } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Email no válido'),
@@ -588,7 +589,18 @@ export default function CatalogoAdmin() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <CatalogoHeader />
+      <header className="sticky top-0 z-50 bg-green-800 text-white shadow-md">
+        <nav className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/catalogo" className="flex items-center gap-2">
+            <Leaf className="h-7 w-7" />
+            <span className="text-xl font-bold font-montserrat">Catálogo Solidario</span>
+          </Link>
+          <div className="flex items-center gap-4 text-sm">
+            <Link href="/" className="text-green-200 hover:text-white transition hidden md:block">Inicio</Link>
+            <Link href="/catalogo" className="text-green-200 hover:text-white transition hidden md:block">Catálogo</Link>
+          </div>
+        </nav>
+      </header>
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-green-900">Panel de Administración</h1>

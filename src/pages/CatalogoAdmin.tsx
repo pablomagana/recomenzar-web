@@ -12,7 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Pencil, Trash2, ImageIcon, Eye, RefreshCw, LogOut, Loader2, ExternalLink } from 'lucide-react';
+import { Plus, Pencil, Trash2, ImageIcon, Eye, RefreshCw, LogOut, Loader2, ExternalLink, Mail, Phone, MapPin, Package, Calendar } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 import { apiGet, apiPost, apiPut, apiDelete, apiUpload, apiPatch, setToken, setRefreshToken, removeToken, isAuthenticated } from '@/lib/api';
 import type { Product, Order, PaginatedResponse, Categoria, EstadoPedido } from '@/types/catalogo';
 import { CATEGORIAS, ESTADOS_PEDIDO } from '@/types/catalogo';
@@ -442,35 +443,103 @@ function OrdersTab() {
       </div>
 
       <Dialog open={!!detail} onOpenChange={() => setDetail(null)}>
-        <DialogContent>
+        <DialogContent className="max-w-3xl">
           <DialogHeader>
-            <DialogTitle>Pedido {detail?.referencia}</DialogTitle>
+            <DialogTitle className="text-lg">Pedido {detail?.referencia}</DialogTitle>
+            {detail && (
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <Calendar className="h-3.5 w-3.5" />
+                {new Date(detail.createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </div>
+            )}
           </DialogHeader>
           {detail && (
-            <div className="space-y-3 text-sm">
-              <div className="grid grid-cols-2 gap-2">
-                <div><span className="text-gray-400">Cliente:</span> {detail.nombreCliente}</div>
-                <div><span className="text-gray-400">Email:</span> {detail.emailCliente}</div>
-                <div><span className="text-gray-400">Teléfono:</span> {detail.telefonoCliente}</div>
-                <div><span className="text-gray-400">Ciudad:</span> {detail.ciudad}</div>
-                <div className="col-span-2"><span className="text-gray-400">Dirección:</span> {detail.direccion}, {detail.codigoPostal} {detail.provincia}</div>
-                {detail.notas && <div className="col-span-2"><span className="text-gray-400">Notas:</span> {detail.notas}</div>}
-              </div>
-              {detail.items && detail.items.length > 0 && (
-                <>
-                  <h4 className="font-bold mt-2">Artículos</h4>
-                  {detail.items.map(item => (
-                    <div key={item.id} className="flex justify-between">
-                      <span>{item.nombreProducto} x{item.cantidad}</span>
-                      <span>€{Number(item.subtotal).toFixed(2)}</span>
-                    </div>
-                  ))}
-                  <div className="flex justify-between font-bold pt-2 border-t">
-                    <span>Total</span>
-                    <span>€{Number(detail.total).toFixed(2)}</span>
+            <div className="flex flex-col md:flex-row gap-6">
+              {/* Left — Items */}
+              <div className="flex-1 space-y-3">
+                <h4 className="font-bold text-sm flex items-center gap-2 text-gray-700">
+                  <Package className="h-4 w-4" /> Artículos
+                </h4>
+                {detail.items && detail.items.length > 0 ? (
+                  <div className="space-y-2">
+                    {detail.items.map((item, i) => (
+                      <div key={item.id}>
+                        {i > 0 && <Separator className="my-2" />}
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <p className="font-medium text-sm">{item.nombreProducto}</p>
+                            <p className="text-xs text-gray-400">{item.cantidad} x €{Number(item.precioUnitario).toFixed(2)}</p>
+                          </div>
+                          <p className="font-medium text-sm">€{Number(item.subtotal).toFixed(2)}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </>
-              )}
+                ) : (
+                  <p className="text-sm text-gray-400">Sin artículos</p>
+                )}
+                <div className="flex justify-between items-center bg-green-50 rounded-lg px-3 py-2 mt-3">
+                  <span className="font-bold text-sm">Total</span>
+                  <span className="font-bold text-lg text-green-800">€{Number(detail.total).toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* Right — Info */}
+              <div className="md:w-56 space-y-4">
+                {/* Estado */}
+                <div>
+                  <h4 className="font-bold text-sm text-gray-700 mb-1.5">Estado</h4>
+                  <Select value={detail.estado} onValueChange={v => { updateStatus(detail.id, v as EstadoPedido); setDetail({ ...detail, estado: v as EstadoPedido }); }}>
+                    <SelectTrigger className="h-9">
+                      <Badge className={estadoColor[detail.estado]}>
+                        {ESTADOS_PEDIDO.find(e => e.value === detail.estado)?.label}
+                      </Badge>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {ESTADOS_PEDIDO.map(e => (
+                        <SelectItem key={e.value} value={e.value}>{e.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <Separator />
+
+                {/* Cliente */}
+                <div>
+                  <h4 className="font-bold text-sm text-gray-700 mb-1.5">Cliente</h4>
+                  <div className="bg-gray-50 rounded-lg p-3 space-y-1.5 text-sm">
+                    <p className="font-semibold">{detail.nombreCliente}</p>
+                    <p className="flex items-center gap-2 text-gray-500">
+                      <Mail className="h-3.5 w-3.5 shrink-0" /> {detail.emailCliente}
+                    </p>
+                    <p className="flex items-center gap-2 text-gray-500">
+                      <Phone className="h-3.5 w-3.5 shrink-0" /> {detail.telefonoCliente}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Envío */}
+                <div>
+                  <h4 className="font-bold text-sm text-gray-700 mb-1.5">Envío</h4>
+                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                    <p className="flex items-start gap-2 text-gray-600">
+                      <MapPin className="h-3.5 w-3.5 shrink-0 mt-0.5" />
+                      <span>{detail.direccion}<br />{detail.codigoPostal} {detail.ciudad}, {detail.provincia}</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Notas */}
+                {detail.notas && (
+                  <div>
+                    <h4 className="font-bold text-sm text-gray-700 mb-1.5">Notas</h4>
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
+                      {detail.notas}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </DialogContent>

@@ -92,7 +92,7 @@ function ProductsTab() {
     setLoading(true);
     try {
       const res = await apiGet<PaginatedResponse<Product>>('/catalogo/products?limit=100');
-      setProducts(res.data);
+      setProducts(Array.isArray(res.data) ? res.data : Array.isArray(res) ? res as unknown as Product[] : []);
     } catch {
       setProducts([]);
     } finally {
@@ -102,9 +102,11 @@ function ProductsTab() {
 
   useEffect(() => { fetchProducts(); }, [fetchProducts]);
 
-  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<ProductForm>({
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<ProductForm>({
     resolver: zodResolver(productSchema),
   });
+
+  const watchedCategoria = watch('categoria');
 
   const openCreate = () => {
     setEditing(null);
@@ -200,7 +202,7 @@ function ProductsTab() {
                     {CATEGORIAS.find(c => c.value === p.categoria)?.label ?? p.categoria}
                   </Badge>
                 </TableCell>
-                <TableCell>€{p.precio.toFixed(2)}</TableCell>
+                <TableCell>€{Number(p.precio).toFixed(2)}</TableCell>
                 <TableCell>{p.stock}</TableCell>
                 <TableCell>
                   <Badge className={p.activo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
@@ -262,7 +264,7 @@ function ProductsTab() {
               </div>
               <div>
                 <Label>Categoría</Label>
-                <Select onValueChange={v => setValue('categoria', v)} defaultValue={editing?.categoria}>
+                <Select value={watchedCategoria || undefined} onValueChange={v => setValue('categoria', v)}>
                   <SelectTrigger><SelectValue placeholder="Seleccionar" /></SelectTrigger>
                   <SelectContent>
                     {CATEGORIAS.map(c => (
@@ -294,7 +296,7 @@ function OrdersTab() {
     setLoading(true);
     try {
       const res = await apiGet<PaginatedResponse<Order>>('/catalogo/orders?limit=100');
-      setOrders(res.data);
+      setOrders(Array.isArray(res.data) ? res.data : Array.isArray(res) ? res as unknown as Order[] : []);
     } catch {
       setOrders([]);
     } finally {
@@ -353,7 +355,7 @@ function OrdersTab() {
                 <TableCell className="font-mono text-sm font-bold text-green-800">{o.referencia}</TableCell>
                 <TableCell>{o.nombreCliente}</TableCell>
                 <TableCell className="text-sm text-gray-500">{new Date(o.createdAt).toLocaleDateString('es-ES')}</TableCell>
-                <TableCell className="font-bold">€{o.total.toFixed(2)}</TableCell>
+                <TableCell className="font-bold">€{Number(o.total).toFixed(2)}</TableCell>
                 <TableCell>
                   <Select value={o.estado} onValueChange={v => updateStatus(o.id, v as EstadoPedido)}>
                     <SelectTrigger className="h-8 w-32">
@@ -400,12 +402,12 @@ function OrdersTab() {
                   {detail.items.map(item => (
                     <div key={item.id} className="flex justify-between">
                       <span>{item.nombreProducto} x{item.cantidad}</span>
-                      <span>€{item.subtotal.toFixed(2)}</span>
+                      <span>€{Number(item.subtotal).toFixed(2)}</span>
                     </div>
                   ))}
                   <div className="flex justify-between font-bold pt-2 border-t">
                     <span>Total</span>
-                    <span>€{detail.total.toFixed(2)}</span>
+                    <span>€{Number(detail.total).toFixed(2)}</span>
                   </div>
                 </>
               )}

@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Pencil, Trash2, ImageIcon, Eye, RefreshCw, LogOut, Loader2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, ImageIcon, Eye, RefreshCw, LogOut, Loader2, ExternalLink } from 'lucide-react';
 import { apiGet, apiPost, apiPut, apiDelete, apiUpload, apiPatch, setToken, setRefreshToken, removeToken, isAuthenticated } from '@/lib/api';
 import type { Product, Order, PaginatedResponse, Categoria, EstadoPedido } from '@/types/catalogo';
 import { CATEGORIAS, ESTADOS_PEDIDO } from '@/types/catalogo';
@@ -498,9 +498,14 @@ export default function CatalogoAdmin() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-green-900">Panel de Administración</h1>
-          <Button variant="outline" onClick={handleLogout} className="gap-2">
-            <LogOut className="h-4 w-4" /> Cerrar sesión
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => window.open('/catalogo', '_blank')} className="gap-2">
+              <ExternalLink className="h-4 w-4" /> Ver catálogo
+            </Button>
+            <Button variant="outline" onClick={handleLogout} className="gap-2">
+              <LogOut className="h-4 w-4" /> Cerrar sesión
+            </Button>
+          </div>
         </div>
 
         <Tabs defaultValue="productos">

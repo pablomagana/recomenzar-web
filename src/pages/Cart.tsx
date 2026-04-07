@@ -56,44 +56,48 @@ export default function Cart() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="flex items-center gap-4 bg-white rounded-xl border p-3"
+                className="bg-white rounded-xl border p-3 space-y-3"
               >
-                <div className="h-24 w-24 rounded-lg bg-green-100 flex items-center justify-center shrink-0 overflow-hidden">
-                  {item.product.imagenPrincipal ? (
-                    <img
-                      src={`${import.meta.env.VITE_API_URL ?? ''}${item.product.imagenPrincipal}`}
-                      alt={item.product.nombre}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <ImageIcon className="h-6 w-6 text-green-300" />
-                  )}
+                <div className="flex items-center gap-3">
+                  <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-lg bg-green-100 flex items-center justify-center shrink-0 overflow-hidden">
+                    {item.product.imagenPrincipal ? (
+                      <img
+                        src={`${import.meta.env.VITE_API_URL ?? ''}${item.product.imagenPrincipal}`}
+                        alt={item.product.nombre}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <ImageIcon className="h-6 w-6 text-green-300" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-green-900 truncate">{item.product.nombre}</h3>
+                    <p className="text-xs text-gray-400">{item.product.categoria}</p>
+                    <p className="font-bold text-green-800 mt-1">€{Number(item.product.precio).toFixed(2)}</p>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-green-900 truncate">{item.product.nombre}</h3>
-                  <p className="text-xs text-gray-400">{item.product.categoria}</p>
-                  <p className="font-bold text-green-800 mt-1">€{Number(item.product.precio).toFixed(2)}</p>
-                </div>
-                <div className="flex items-center border rounded-lg">
-                  <button
-                    onClick={() => updateQuantity(item.product.id, item.cantidad - 1)}
-                    className="w-9 h-9 flex items-center justify-center hover:bg-gray-100"
-                  >
-                    <Minus className="h-3.5 w-3.5" />
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center border rounded-lg">
+                    <button
+                      onClick={() => updateQuantity(item.product.id, item.cantidad - 1)}
+                      className="w-9 h-9 flex items-center justify-center hover:bg-gray-100"
+                    >
+                      <Minus className="h-3.5 w-3.5" />
+                    </button>
+                    <span className="w-10 text-center text-sm font-bold bg-gray-50 h-9 flex items-center justify-center">
+                      {item.cantidad}
+                    </span>
+                    <button
+                      onClick={() => updateQuantity(item.product.id, item.cantidad + 1)}
+                      className="w-9 h-9 flex items-center justify-center hover:bg-gray-100"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                  <button onClick={() => removeItem(item.product.id)}>
+                    <Trash2 className="h-4.5 w-4.5 text-orange-500 hover:text-orange-600" />
                   </button>
-                  <span className="w-10 text-center text-sm font-bold bg-gray-50 h-9 flex items-center justify-center">
-                    {item.cantidad}
-                  </span>
-                  <button
-                    onClick={() => updateQuantity(item.product.id, item.cantidad + 1)}
-                    className="w-9 h-9 flex items-center justify-center hover:bg-gray-100"
-                  >
-                    <Plus className="h-3.5 w-3.5" />
-                  </button>
                 </div>
-                <button onClick={() => removeItem(item.product.id)}>
-                  <Trash2 className="h-4.5 w-4.5 text-orange-500 hover:text-orange-600" />
-                </button>
               </motion.div>
             ))}
           </div>

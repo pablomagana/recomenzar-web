@@ -45,8 +45,8 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
   const onSubmit = async (data: LoginForm) => {
     setLoading(true);
     try {
-      const res = await apiPost<{ access_token: string }>('/auth/login', data);
-      setToken(res.access_token);
+      const res = await apiPost<{ accessToken: string }>('/auth/login', data);
+      setToken(res.accessToken);
       onLogin();
     } catch {
       toast({ title: 'Error', description: 'Credenciales incorrectas', variant: 'destructive' });

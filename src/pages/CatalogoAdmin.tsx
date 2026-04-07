@@ -86,6 +86,9 @@ function ProductsTab() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Product | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
 
   const fetchProducts = useCallback(async () => {
@@ -110,29 +113,50 @@ function ProductsTab() {
 
   const openCreate = () => {
     setEditing(null);
+    setImageFile(null);
+    setImagePreview(null);
     reset({ nombre: '', descripcion: '', precio: 0, categoria: '', stock: 0 });
     setDialogOpen(true);
   };
 
   const openEdit = (p: Product) => {
     setEditing(p);
+    setImageFile(null);
+    setImagePreview(p.imagenPrincipal ? `${import.meta.env.VITE_API_URL ?? ''}${p.imagenPrincipal}` : null);
     reset({ nombre: p.nombre, descripcion: p.descripcion, precio: p.precio, categoria: p.categoria, stock: p.stock });
     setDialogOpen(true);
   };
 
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
   const onSubmit = async (data: ProductForm) => {
+    setSubmitting(true);
     try {
+      let productId: string;
       if (editing) {
         await apiPut(`/catalogo/products/${editing.id}`, data);
-        toast({ title: 'Producto actualizado' });
+        productId = editing.id;
       } else {
-        await apiPost('/catalogo/products', data);
-        toast({ title: 'Producto creado' });
+        const created = await apiPost<Product>('/catalogo/products', data);
+        productId = created.id;
       }
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append('images', imageFile);
+        await apiUpload(`/catalogo/products/${productId}/images`, formData);
+      }
+      toast({ title: editing ? 'Producto actualizado' : 'Producto creado' });
       setDialogOpen(false);
       fetchProducts();
     } catch (err) {
       toast({ title: 'Error', description: err instanceof Error ? err.message : 'Error', variant: 'destructive' });
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -275,8 +299,36 @@ function ProductsTab() {
                 {errors.categoria && <p className="text-xs text-red-500 mt-1">{errors.categoria.message}</p>}
               </div>
             </div>
-            <Button type="submit" className="w-full bg-green-800 hover:bg-green-700">
-              {editing ? 'Guardar cambios' : 'Crear producto'}
+            <div>
+              <Label>Imagen</Label>
+              <div className="mt-1 flex items-center gap-4">
+                {imagePreview ? (
+                  <div className="relative h-20 w-24 rounded-lg overflow-hidden bg-green-100 shrink-0">
+                    <img src={imagePreview} alt="Preview" className="h-full w-full object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => { setImageFile(null); setImagePreview(editing?.imagenPrincipal ? `${import.meta.env.VITE_API_URL ?? ''}${editing.imagenPrincipal}` : null); }}
+                      className="absolute top-0.5 right-0.5 bg-white/80 rounded-full p-0.5 hover:bg-white"
+                    >
+                      <Trash2 className="h-3 w-3 text-red-500" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="h-20 w-24 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
+                    <ImageIcon className="h-6 w-6 text-green-300" />
+                  </div>
+                )}
+                <label className="cursor-pointer">
+                  <div className="px-3 py-2 text-sm border rounded-md hover:bg-gray-50 transition inline-flex items-center gap-2">
+                    <ImageIcon className="h-4 w-4" />
+                    {imagePreview ? 'Cambiar imagen' : 'Subir imagen'}
+                  </div>
+                  <input type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
+                </label>
+              </div>
+            </div>
+            <Button type="submit" disabled={submitting} className="w-full bg-green-800 hover:bg-green-700">
+              {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : editing ? 'Guardar cambios' : 'Crear producto'}
             </Button>
           </form>
         </DialogContent>

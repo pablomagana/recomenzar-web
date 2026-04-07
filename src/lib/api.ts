@@ -4,21 +4,61 @@ function getToken(): string | null {
   return localStorage.getItem('catalogo_admin_token');
 }
 
+function getRefreshToken(): string | null {
+  return localStorage.getItem('catalogo_admin_refresh_token');
+}
+
 export function setToken(token: string) {
   localStorage.setItem('catalogo_admin_token', token);
 }
 
+export function setRefreshToken(token: string) {
+  localStorage.setItem('catalogo_admin_refresh_token', token);
+}
+
 export function removeToken() {
   localStorage.removeItem('catalogo_admin_token');
+  localStorage.removeItem('catalogo_admin_refresh_token');
 }
 
 export function isAuthenticated(): boolean {
   return !!getToken();
 }
 
+let refreshPromise: Promise<boolean> | null = null;
+
+async function tryRefresh(): Promise<boolean> {
+  const refreshToken = getRefreshToken();
+  if (!refreshToken) return false;
+
+  if (refreshPromise) return refreshPromise;
+
+  refreshPromise = (async () => {
+    try {
+      const res = await fetch(`${API_URL}/auth/refresh`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken }),
+      });
+      if (!res.ok) return false;
+      const data = await res.json();
+      setToken(data.accessToken);
+      setRefreshToken(data.refreshToken);
+      return true;
+    } catch {
+      return false;
+    } finally {
+      refreshPromise = null;
+    }
+  })();
+
+  return refreshPromise;
+}
+
 async function request<T>(
   path: string,
   options: RequestInit = {},
+  _retry = true,
 ): Promise<T> {
   const token = getToken();
   const headers: Record<string, string> = {
@@ -37,6 +77,15 @@ async function request<T>(
     ...options,
     headers,
   });
+
+  if (res.status === 401 && _retry) {
+    const refreshed = await tryRefresh();
+    if (refreshed) {
+      return request<T>(path, options, false);
+    }
+    removeToken();
+    throw new Error('No autorizado');
+  }
 
   if (res.status === 401) {
     removeToken();

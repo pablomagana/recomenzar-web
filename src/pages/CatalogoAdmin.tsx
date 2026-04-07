@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Pencil, Trash2, ImageIcon, Eye, RefreshCw, LogOut, Loader2 } from 'lucide-react';
-import { apiGet, apiPost, apiPut, apiDelete, apiUpload, apiPatch, setToken, removeToken, isAuthenticated } from '@/lib/api';
+import { apiGet, apiPost, apiPut, apiDelete, apiUpload, apiPatch, setToken, setRefreshToken, removeToken, isAuthenticated } from '@/lib/api';
 import type { Product, Order, PaginatedResponse, Categoria, EstadoPedido } from '@/types/catalogo';
 import { CATEGORIAS, ESTADOS_PEDIDO } from '@/types/catalogo';
 import CatalogoHeader from '@/components/catalogo/CatalogoHeader';
@@ -45,8 +45,9 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
   const onSubmit = async (data: LoginForm) => {
     setLoading(true);
     try {
-      const res = await apiPost<{ accessToken: string }>('/auth/login', data);
+      const res = await apiPost<{ accessToken: string; refreshToken: string }>('/auth/login', data);
       setToken(res.accessToken);
+      setRefreshToken(res.refreshToken);
       onLogin();
     } catch {
       toast({ title: 'Error', description: 'Credenciales incorrectas', variant: 'destructive' });
@@ -146,15 +147,22 @@ function ProductsTab() {
         productId = created.id;
       }
       if (imageFile) {
-        const formData = new FormData();
-        formData.append('images', imageFile);
-        await apiUpload(`/catalogo/products/${productId}/images`, formData);
+        try {
+          const formData = new FormData();
+          formData.append('images', imageFile);
+          await apiUpload(`/catalogo/products/${productId}/images`, formData);
+        } catch (imgErr) {
+          toast({ title: 'Producto guardado, pero error al subir imagen', description: imgErr instanceof Error ? imgErr.message : 'Error', variant: 'destructive' });
+          setDialogOpen(false);
+          fetchProducts();
+          return;
+        }
       }
       toast({ title: editing ? 'Producto actualizado' : 'Producto creado' });
       setDialogOpen(false);
       fetchProducts();
     } catch (err) {
-      toast({ title: 'Error', description: err instanceof Error ? err.message : 'Error', variant: 'destructive' });
+      toast({ title: 'Error al guardar producto', description: err instanceof Error ? err.message : 'Error', variant: 'destructive' });
     } finally {
       setSubmitting(false);
     }

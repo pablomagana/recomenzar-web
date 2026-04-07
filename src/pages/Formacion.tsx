@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Search, MapPin, Clock, Award, Building2, GraduationCap, ChevronDown, ChevronUp, ExternalLink, X, Filter, Loader2 } from 'lucide-react';
+import { Search, MapPin, Clock, Award, GraduationCap, ChevronDown, ChevronUp, ExternalLink, X, Filter, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -159,76 +159,54 @@ const Formacion = () => {
       {/* Empresas Colaboradoras */}
       <section className="py-8 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-6">
-            <div className="flex-1">
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-gray-800 mb-2">Empresas Colaboradoras para la Formación</h2>
-                <p className="text-gray-600 mb-6 text-sm">Entidades comprometidas con la inserción laboral y capacitación profesional</p>
+          <div className="bg-white rounded-xl p-6 shadow-sm">
+            <h2 className="text-xl font-bold text-gray-800 mb-2">Empresas Colaboradoras para la Formación</h2>
+            <p className="text-gray-600 mb-6 text-sm">Entidades comprometidas con la inserción laboral y capacitación profesional</p>
 
-                {loadingEmpresas ? (
-                  <div className="flex justify-center py-8">
-                    <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
-                  </div>
-                ) : empresas.length === 0 ? (
-                  <p className="text-center py-8 text-gray-400 text-sm">No hay empresas colaboradoras disponibles</p>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {empresas.map((empresa, index) => (
-                      <motion.div
-                        key={empresa.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                      >
-                        <Card className="hover:shadow-lg transition-all duration-300 h-full border-t-4 border-blue-500">
-                          <CardContent className="p-4">
-                            <div className="flex items-center gap-2 mb-3">
-                              {empresa.certificado && (
-                                <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                                  <Award className="h-3 w-3" />
-                                  Centro Certificado
-                                </span>
-                              )}
-                            </div>
-                            <h3 className="font-bold text-gray-800 mb-1">{empresa.nombre}</h3>
-                            <p className="text-sm text-gray-600 mb-4">{empresa.descripcion}</p>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="w-full text-blue-600 border-blue-600 hover:bg-blue-50"
-                              onClick={() => {
-                                setSelectedEmpresa(selectedEmpresa === empresa.id ? null : empresa.id);
-                                cursosRef.current?.scrollIntoView({ behavior: 'smooth' });
-                              }}
-                            >
-                              {selectedEmpresa === empresa.id ? 'Quitar filtro' : 'Ver Cursos'} <ExternalLink className="h-3 w-3 ml-1" />
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
+            {loadingEmpresas ? (
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
               </div>
-            </div>
-
-            {/* Banner CTA */}
-            <div className="lg:w-72">
-              <Card className="bg-gradient-to-br from-blue-600 to-blue-800 text-white h-full">
-                <CardContent className="p-6 flex flex-col justify-center h-full">
-                  <Building2 className="h-10 w-10 mb-4" />
-                  <h3 className="text-xl font-bold mb-2">¿Quieres formar a nuestros candidatos?</h3>
-                  <p className="text-blue-100 text-sm mb-6">
-                    Únete a nuestra red de empresas colaboradoras y ayuda a transformar vidas a través de la formación.
-                  </p>
-                  <Link href="/#contacto">
-                    <Button className="bg-white text-blue-700 hover:bg-blue-50 w-full">
-                      Colabora con nosotros
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
+            ) : empresas.length === 0 ? (
+              <p className="text-center py-8 text-gray-400 text-sm">No hay empresas colaboradoras disponibles</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {empresas.map((empresa, index) => (
+                  <motion.div
+                    key={empresa.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Card className="hover:shadow-lg transition-all duration-300 h-full border-t-4 border-blue-500">
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-2 mb-3">
+                          {empresa.certificado && (
+                            <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                              <Award className="h-3 w-3" />
+                              Centro Certificado
+                            </span>
+                          )}
+                        </div>
+                        <h3 className="font-bold text-gray-800 mb-1">{empresa.nombre}</h3>
+                        <p className="text-sm text-gray-600 mb-4">{empresa.descripcion}</p>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full text-blue-600 border-blue-600 hover:bg-blue-50"
+                          onClick={() => {
+                            setSelectedEmpresa(selectedEmpresa === empresa.id ? null : empresa.id);
+                            cursosRef.current?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                        >
+                          {selectedEmpresa === empresa.id ? 'Quitar filtro' : 'Ver Cursos'} <ExternalLink className="h-3 w-3 ml-1" />
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -40,11 +40,11 @@ export default function Cart() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Items */}
           <div className="flex-1 space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <h1 className="text-2xl font-bold text-green-900">
                 Tu carrito ({items.reduce((s, i) => s + i.cantidad, 0)} productos)
               </h1>
-              <button onClick={clearCart} className="text-sm text-orange-500 hover:underline">
+              <button onClick={clearCart} className="text-sm text-orange-500 hover:underline text-left sm:text-right">
                 Vaciar carrito
               </button>
             </div>

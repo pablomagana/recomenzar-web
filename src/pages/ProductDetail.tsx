@@ -18,7 +18,6 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [cantidad, setCantidad] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(0);
   const { addItem } = useCart();
   const { toast } = useToast();
 
@@ -75,12 +74,9 @@ export default function ProductDetail() {
   }
 
   const catLabel = CATEGORIAS.find(c => c.value === product.categoria)?.label ?? product.categoria;
-  const images = product.imagenes?.length ? product.imagenes : [];
-  const mainImageUrl = images[selectedImage]?.url
-    ? `${import.meta.env.VITE_API_URL ?? ''}${images[selectedImage].url}`
-    : product.imagenPrincipal
-      ? `${import.meta.env.VITE_API_URL ?? ''}${product.imagenPrincipal}`
-      : null;
+  const mainImageUrl = product.imagenPrincipal
+    ? `${import.meta.env.VITE_API_URL ?? ''}${product.imagenPrincipal}`
+    : null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -98,8 +94,8 @@ export default function ProductDetail() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-10">
-          {/* Gallery */}
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:w-[600px] space-y-3">
+          {/* Image */}
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:w-[600px]">
             <div className="h-[450px] rounded-xl bg-green-100 flex items-center justify-center overflow-hidden">
               {mainImageUrl ? (
                 <img src={mainImageUrl} alt={product.nombre} className="w-full h-full object-cover" />
@@ -107,19 +103,6 @@ export default function ProductDetail() {
                 <ImageIcon className="h-16 w-16 text-green-300" />
               )}
             </div>
-            {images.length > 1 && (
-              <div className="flex gap-2">
-                {images.map((img, i) => (
-                  <button
-                    key={img.id}
-                    onClick={() => setSelectedImage(i)}
-                    className={`w-20 h-16 rounded-lg bg-green-100 overflow-hidden border-2 ${i === selectedImage ? 'border-green-800' : 'border-transparent'}`}
-                  >
-                    <img src={`${import.meta.env.VITE_API_URL ?? ''}${img.url}`} alt="" className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
           </motion.div>
 
           {/* Info */}

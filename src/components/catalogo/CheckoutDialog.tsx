@@ -39,16 +39,19 @@ export default function CheckoutDialog({ open, onOpenChange, onSuccess }: Checko
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<CheckoutForm>({
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<CheckoutForm>({
     resolver: zodResolver(checkoutSchema),
   });
+
+  const aceptaPrivacidad = watch('aceptaPrivacidad');
 
   const onSubmit = async (data: CheckoutForm) => {
     setLoading(true);
     setError(null);
     try {
+      const { aceptaPrivacidad: _, ...formData } = data;
       const orderData: CreateOrderData = {
-        ...data,
+        ...formData,
         items: items.map(i => ({ productId: i.product.id, cantidad: i.cantidad })),
       };
       const order = await apiPost<Order>('/catalogo/orders', orderData);
@@ -115,11 +118,8 @@ export default function CheckoutDialog({ open, onOpenChange, onSuccess }: Checko
             <div className="flex items-start gap-2">
               <Checkbox
                 id="aceptaPrivacidad"
-                {...register('aceptaPrivacidad')}
-                onCheckedChange={(checked) => {
-                  const event = { target: { name: 'aceptaPrivacidad', value: checked === true } };
-                  register('aceptaPrivacidad').onChange(event);
-                }}
+                checked={aceptaPrivacidad === true}
+                onCheckedChange={(checked) => setValue('aceptaPrivacidad', (checked === true) as true, { shouldValidate: true })}
               />
               <label htmlFor="aceptaPrivacidad" className="text-xs text-gray-600 leading-tight">
                 He leído y acepto la{' '}
@@ -147,7 +147,7 @@ export default function CheckoutDialog({ open, onOpenChange, onSuccess }: Checko
             {error && <p className="text-sm text-red-500">{error}</p>}
             <Button
               type="submit"
-              disabled={loading}
+              disabled={loading || aceptaPrivacidad !== true}
               className="w-full bg-green-800 hover:bg-green-700 gap-2"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" />}
